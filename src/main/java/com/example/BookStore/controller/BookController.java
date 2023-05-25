@@ -1,6 +1,7 @@
 package com.example.BookStore.controller;
 
 import com.example.BookStore.entity.Book;
+import com.example.BookStore.entity.Category;
 import com.example.BookStore.services.BookService;
 import com.example.BookStore.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,5 +65,6 @@ public class BookController {
         bookService.updateBook(book);
         return "redirect:/books";
     }
+
 
 }
