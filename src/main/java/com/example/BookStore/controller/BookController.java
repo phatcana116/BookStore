@@ -3,17 +3,19 @@ package com.example.BookStore.controller;
 import com.example.BookStore.entity.Book;
 import com.example.BookStore.services.BookService;
 import com.example.BookStore.services.CategoryService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/books")
+@RequestMapping("/book")
 public class BookController {
     @Autowired
     private BookService bookService;
@@ -32,10 +34,15 @@ public class BookController {
         return "book/add";
     }
     @PostMapping("/add")
-    public String addBook(@ModelAttribute("book")Book book){
+    public String addBook(@Valid @ModelAttribute("book")Book book, BindingResult bindingResult, Model model){
+        if(bindingResult.hasErrors()){
+            model.addAttribute("categories",categoryService.getAllCategories());
+            return "book/add";
+        }
         bookService.addBook(book);
-        return "redirect:/books";
+        return "redirect:/book";
     }
+
     @GetMapping("/search")
     public String searchBooks(@RequestParam("keyword") String keyword, Model model) {
         List<Book> books = bookService.searchBooks(keyword);

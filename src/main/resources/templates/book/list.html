@@ -57,7 +57,7 @@
 </head>
 <body>
 <th:block th:replace="layout :: header"></th:block>
-<form th:action="@{/books/search}" method="GET" class="mb-3">
+<form th:action="@{/book/search}" method="GET" class="mb-3">
     <div class="col-6 md-3" style="display:flex">
         <input type="text" class="form-control" name="keyword" placeholder="Search by title or category">
         <div id="autocompleteContainer"></div>
